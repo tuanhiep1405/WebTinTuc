@@ -18,7 +18,9 @@ class CategoriesController extends Controller
      //danh sách danh mục
     public function index()
     {
-        $data = Category::paginate(5);
+        
+        $data = Category::where('status',1)->paginate(5);
+
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
