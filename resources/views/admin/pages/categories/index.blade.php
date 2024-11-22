@@ -13,6 +13,7 @@
                     </ol>
                 </div>
                 <h5 class="page-title">Categories</h5>
+                
             </div>
             <div class="col-md-12">
                 <div class="row">
@@ -43,10 +44,14 @@
                                 <h2 class="mb-4">
                                     <span class="badge badge-default"> Categories </span>
                                 </h2>
-                               
+                                @include('admin.layouts.partials.error')
                                 <div class="d-flex justify-content-between mb-4" style="width: 100%">
                                     <div>
-                                        
+                                        <a href="{{url('listHiden')}}" class="btn btn-danger mo-mb-2"
+                                        data-toggle="tooltip" data-placement="left" title=""
+                                        data-original-title="List Categories Hiden">
+                                        <i class="fa-solid fa-list"></i></i>
+                                    </a>
                                     </div>
                                     <div></div>
                                 </div>
@@ -68,12 +73,12 @@
                                                     <td>
                                                         <div class="d-flex">
                                                             <button title="Edit" class="btn btn-warning mr-2">
-                                                                <a href="{{ route('user.edit', $category->id) }}"><i
+                                                                <a href="{{ route('categories.edit', $category->id) }}"><i
                                                                         class="fa-solid fa-pen" style="color: white"></i></a>
                                                             </button>
-                                                            <form action="{{ route('user.lock', $category->id) }}" method="POST">
+                                                            <form action="{{ route('categories.lock', $category->id) }}" method="POST">
                                                                 @csrf
-                                                                <button title="Look" class="btn btn-danger"><i
+                                                                <button onclick="return confirm('Hide {{ $category->name }}')" title="Look" class="btn btn-danger"><i
                                                                     class="fa-solid fa-eye-slash" style="color: white"></i></button>
                                                             </form>
                                                             

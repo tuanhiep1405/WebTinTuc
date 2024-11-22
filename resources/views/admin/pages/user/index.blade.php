@@ -56,7 +56,7 @@
                                                     </button>
                                                     <form action="{{ route('user.lock', $item->id) }}" method="POST">
                                                         @csrf
-                                                        <button title="Look" class="btn btn-danger"><i
+                                                        <button onclick="return confirm('Hide {{ $item->name }}')" title="Look" class="btn btn-danger"><i
                                                                 class="fa-solid fa-lock" style="color: white"></i></button>
                                                     </form>
                                                 </div>

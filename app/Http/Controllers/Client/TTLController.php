@@ -13,8 +13,7 @@ class TTLController extends Controller
 {
     public function index($id)
     {
-        $cate = Category::all();
-
+        $cate = Category::where('status',1)->get();
 
         $chiTiet = Category::select('name')->where('id', $id)->first();
 

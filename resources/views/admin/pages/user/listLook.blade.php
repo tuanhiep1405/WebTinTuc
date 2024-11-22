@@ -59,7 +59,7 @@
 
                                                 <form action="{{ route('user.unlock', $item->id) }}" method="POST">
                                                     @csrf
-                                                    <button title="Look" class="btn btn-success"><i
+                                                    <button onclick="return confirm('Eye {{ $item->name }}')"  title="Look" class="btn btn-success"><i
                                                             class="fa-solid fa-lock-open" style="color: white"></i></button>
                                                 </form>
                                             </td>

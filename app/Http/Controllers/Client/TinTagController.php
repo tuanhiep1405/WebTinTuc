@@ -13,7 +13,8 @@ class TinTagController extends Controller
 
     public function index($id)
     {
-        $cate = Category::all();
+        $cate = Category::where('status',1)->get();
+
 
 
         $postWithTags = DB::table('posts AS p')

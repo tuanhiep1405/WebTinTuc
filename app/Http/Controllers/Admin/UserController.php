@@ -12,6 +12,8 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     //danh sách tài khoản
     public function index()
     {
         
@@ -20,6 +22,8 @@ class UserController extends Controller
     return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
+
+    //danh sách tài khoản bị khóa
     public function listLook()
     {
         
@@ -55,6 +59,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
+     // Hiển thị dữ liệu tài khoản theo id
     public function edit(string $id)
     {
         $data = User::findOrFail($id);
@@ -66,6 +72,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+     //update tài khoản theo id
     public function update(Request $request, string $id)
     {
        try {
@@ -87,6 +95,7 @@ class UserController extends Controller
     }
 
 
+    //Khóa tài khoản
     public function look(string $id){
         $data = User::findOrFail($id);
         try {
@@ -102,6 +111,7 @@ class UserController extends Controller
 
     }
 
+    //Mở khóa tài khoản
     public function unlock(string $id){
         $data = User::findOrFail($id);
         try {

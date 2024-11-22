@@ -59,7 +59,9 @@ Route::post('/user/{id}/lock',[UserController::class,'look'])->name('user.lock')
 Route::post('/user/{id}/unlock',[UserController::class,'unlock'])->name('user.unlock');
 
 Route::resource('categories',CategoriesController::class);
-
+Route::get('listHiden',[CategoriesController::class,'listHiden']);
+Route::post('/categories/{id}/lock',[CategoriesController::class,'look'])->name('categories.lock');
+Route::post('/categories/{id}/unlock',[CategoriesController::class,'unlock'])->name('categories.unlock');
 // Auth::routes();
 
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/');

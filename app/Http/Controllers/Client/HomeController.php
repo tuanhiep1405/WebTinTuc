@@ -25,10 +25,13 @@ class HomeController extends Controller
    */
   public function index()
   {
-    $cate = Category::all();
+    $cate = Category::where('status', 1)->get();
+    // dd($cate);
 
     // dd($cate);
-    $posts = Post::with('category')
+    $posts = Post::with(['category' => function ($query) {
+      $query->where('status', 1); // Điều kiện categories.status = 1
+    }])
       ->select('id', 'content', 'type_id', 'image', 'title', 'views', 'created_at', 'category_id')
       ->where('type_id', 1)
       ->orderBy('views', 'desc')
@@ -36,27 +39,37 @@ class HomeController extends Controller
       ->get();
 
     // dd($posts);
-    $top3 = Post::with('category')
+
+    $top3 = Post::with(['category' => function ($query) {
+      $query->where('status', 1);
+    }])
       ->select('id', 'image', 'title', 'views', 'created_at', 'category_id')
       ->where('type_id', 2)
       ->orderBy('created_at', 'desc')
       ->limit(3)
       ->get();
 
-    // dd($post);
-    $normal = Post::with('category')
+    // dd($top3);
+
+    $normal = Post::with(['category' => function ($query) {
+      $query->where('status', 1);
+    }])
       ->select('id', 'content', 'image', 'title', 'views', 'created_at', 'category_id')
       ->where('type_id', 3)
       ->orderBy('created_at', 'desc')
       ->limit(1)
       ->get();
 
+    // dd($normal);
 
-    $top4 = Post::with('category')
+    $top4 = Post::with(['category' => function ($query) {
+      $query->where('status', 1);
+    }])
       ->select('id', 'content', 'image', 'title', 'views', 'created_at', 'category_id')
       ->orderBy('created_at', 'desc')
       ->limit(4)
       ->get();
+
 
 
     return view(
@@ -68,22 +81,24 @@ class HomeController extends Controller
   }
   public function search(Request $request)
   {
-    $cate = Category::all();
-
-    $query = $request->input('query');
+    $cate = Category::where('status', 1)->get();
 
     $query = $request->input('query');
 
     $posts = Post::with('category', 'tags')
-    ->select('id', 'created_at', 'title', 'content', 'image', 'views', 'category_id')
-    ->where(function ($q) use ($query) {
+      ->select('id', 'created_at', 'title', 'content', 'image', 'views', 'category_id')
+      ->where(function ($q) use ($query) {
         $q->where('title', 'like', '%' . $query . '%')
           ->orWhere('content', 'like', '%' . $query . '%')
           ->orWhereHas('tags', function ($q) use ($query) {
-              $q->where('name', 'like', '%' . $query . '%');
+            $q->where('name', 'like', '%' . $query . '%'); // Tìm theo tag
+          })
+          ->orWhereHas('category', function ($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%'); // Tìm theo danh mục
           });
-    })
-    ->get();
+      })
+      ->get();
+
 
 
 

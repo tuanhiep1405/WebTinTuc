@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class DetailController extends Controller
     public function index($id = 0)
     {
         // $post = DB::table('posts')->where('id', $id)->first();
-        $cate = DB::table('categories')->get();
+        $cate = Category::where('status',1)->get();
 
         $chiTiet = Post::with('category')
             ->select(
